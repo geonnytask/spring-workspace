@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap>
+	<select id="getAllCustomers"
+		resultClass="kr.co.jhta.vo.Customer" >
+		select 
+			cust_no as no , 
+			cust_name as name , 
+			cust_phone as phone 
+		from customers 
+		order by cust_no asc
+	</select>
+	<select id="getCustomerByNo" parameterClass="string"
+		resultClass="kr.co.jhta.vo.Customer">
+		select
+		cust_no as no,
+		cust_name as name,
+		cust_nickname as nickname,
+		cust_phone as phone,
+		cust_email as email,
+		cust_city as city,
+		cust_point as point,
+		cust_create_date as createDate
+		from
+		customers
+		where
+		cust_no = #value#
+	</select>
+	<select id="getCustomerByKeyword" parameterClass="map"
+		resultClass="kr.co.jhta.vo.Customer">
+		select
+		cust_no as no,
+		cust_name as name,
+		cust_nickname as nickname,
+		cust_phone as phone,
+		cust_email as email,
+		cust_city as city,
+		cust_point as point,
+		cust_create_date as createDate
+		from
+			customers
+		where
+		1 = 1
+		<dynamic>
+			<isNotEmpty property="sort">
+				<isEqual property="sort" compareValue="no">
+					and no = #keyword#
+				</isEqual>
+				<isEqual property="sort" compareValue="no">
+					and name = #keyword#
+				</isEqual>
+				<isEqual property="sort" compareValue="no">
+					and nickname = #keyword#
+				</isEqual>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<update id="updateCustomerByNo" parameterClass="kr.co.jhta.vo.Customer">
+		update customers
+		set
+			cust_no = #no#,
+			cust_name = #name#,
+			cust_nickname = #nickname#,
+			cust_phone = #phone#,
+			cust_email = #email#,
+			cust_city = #city#,
+			cust_point = #point#
+		where
+			cust_no = #no#	
+	</update>	
+	
+
+
+</sqlMap>

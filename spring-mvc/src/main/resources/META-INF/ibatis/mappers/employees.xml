@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+	<sqlMap>
+	<select id="getAllEmployeesByDepartmentId" resultClass="kr.co.jhta.vo.Employee">
+		select
+			employee_id as id,
+			last_name as lastName,
+			email as email,
+			hire_date as hireDate,
+			job_id as jobId
+		from
+			employees
+		where
+			department_id = #value#		
+		order by
+			1			
+	</select>
+	
+	<select id="getEmployeesById" parameterClass="string" resultClass="kr.co.jhta.vo.Employee">
+		select
+			employee_id as id,
+			last_name as lastName,
+			email as email,
+			hire_date as hireDate,
+			job_id as jobId
+		from
+			employees
+		where
+			employee_id = #value#		
+		order by
+			1			
+	</select>
+	
+	<insert id="addEmployees" parameterClass="kr.co.jhta.vo.Employee">
+		insert into employees
+		(employee_id, last_name, email, job_id)
+		values
+		(#employeeId#, #lastName#, #email#, #jobId#)
+	</insert>
+	
+	
+
+
+
+</sqlMap>
